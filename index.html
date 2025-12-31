@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only for Mgmin</title>
+   <style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; 
+        background-color: #6b3232; 
+    }
+
+    .hide-text {
+        display: none !important;
+    }
+
+    .container {
+        /* Use box-sizing so padding doesn't push the bottom off-screen */
+        box-sizing: border-box;
+        padding: 20px; 
+        width: 100%;
+        height: 100vh;
+        background-image: url('first.jpg'); 
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    h1 {
+        color: #3d2b1f;
+        font-family: 'serif';
+        font-size: 5rem; /* Desktop size */
+        background: rgba(148, 126, 126, 0.2);
+        padding: 20px;
+        border-radius: 50px;
+        text-align: center;
+        max-width: 90%; /* Prevents text from hitting screen edges */
+    }
+
+    .open-scroll {
+        background-image: url('secondt.png') !important;
+    }
+
+    /* --- MOBILE RESPONSIVE SETTINGS --- */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 2.5rem; /* Shrinks text for phone screens */
+            padding: 15px;
+            border-radius: 30px;
+        }
+        
+        .container {
+            padding: 10px; /* Smaller padding for more space on phones */
+            background-size: contain; /* Optional: keeps the whole scroll visible without cropping */
+            background-color: #6b3232;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="container" id="mainBg" onclick="changeBackground()">
+        <h1 id="text">Welcome naw , Mgmin</h1>
+    </div>
+
+    <script>
+        function changeBackground() {
+            const bg = document.getElementById('mainBg');
+            const text = document.getElementById('text');
+
+            // Switch to the second image
+            bg.classList.add('open-scroll');
+            
+            // This will now work because of the "." in the CSS
+            text.classList.add('hide-text');
+        }
+    </script>
+</body>
+</html>
