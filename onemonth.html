@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only for Mgmin</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* စာသားတွေအများကြီးမရှိဘူးဆိုရင် scroll ပိတ်ထားတာ ပိုလှပါတယ် */
+            background-color: #dcd0b9; /* ပုံမရှိတဲ့နေရာတွေမှာပေါ်မယ့် background အရောင် */
+        }
+
+        .container {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100vh;
+            transition: background-image 0.8s ease-in-out;
+            background-image: url('first.jpg'); 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover; /* ပထမပုံက screen အပြည့်ပေါ်အောင်ထားမယ် */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        /* ပထမစာမျက်နှာစာသား */
+        h1 {
+            color: #3d2b1f;
+            font-family: 'serif';
+            font-size: clamp(2rem, 8vw, 5rem);
+            background: rgba(148, 126, 126, 0.2);
+            padding: 20px;
+            border-radius: 50px;
+            text-align: center;
+            max-width: 80%;
+            transition: opacity 0.5s ease;
+        }
+
+        /* ဒုတိယစာမျက်နှာရှိ စာသားများ */
+        #contentWrapper {
+            display: none;
+            max-width: 90%; /* ပုံပေါ်မှာ စာသားတွေမညီရင် ဒီနေရာမှာပြင်လို့ရပါတယ် */
+            color: #3d2b1f;
+            font-family: 'serif';
+            font-size: 1.2rem;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.5); /* စာဖတ်ရတာ ပိုရှင်းအောင် Background အကြည်လေးခံထားတာပါ */
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* One Month Text (Button) */
+        #oneMonthBtn {
+            display: none;
+            position: absolute; /* ပုံရဲ့ညာဘက်အောက်မှာ ကပ်နေအောင်လုပ်ထားတာပါ */
+            bottom: 30px;
+            right: 30px;
+            color: #3d2b1f;
+            font-family: 'serif';
+            font-size: 1.5rem;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid #3d2b1f;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* ဒုတိယစာမျက်နှာအတွက် ပြင်ဆင်မှု */
+        .open-scroll {
+            background-image: url('secondt.png') !important;
+            background-size: contain !important; /* ပုံကို Screen ထဲဝင်အောင် ချုံ့လိုက်တာပါ */
+            background-repeat: no-repeat !important;
+            background-position: center center !important;
+        }
+
+        /* တတိယစာမျက်နှာ */
+        .final-page { 
+            background-image: url('onemonthanni.png') !important; 
+            background-size: cover !important; /* နောက်ဆုံးပုံကို screen အပြည့်ပြန်ထားမယ် */
+        }
+        
+        .hide-element { display: none !important; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 600px) {
+            #contentWrapper { font-size: 1rem; padding: 15px; }
+            #oneMonthBtn { font-size: 1.2rem; bottom: 15px; right: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainBg" onclick="nextPage()">
+        <h1 id="welcomeText">Welcome naw, Mgmin</h1>
+
+        <div id="contentWrapper">
+            (ကျန်တဲ့စာသားများ ဒီထဲမှာ ဆက်ထည့်ပါ)
+        </div>
+
+        <div id="oneMonthBtn">One Month →</div>
+    </div>
+
+    <script>
+        let step = 1;
+
+        function nextPage() {
+            const bg = document.getElementById('mainBg');
+            const welcomeText = document.getElementById('welcomeText');
+            const content = document.getElementById('contentWrapper');
+            const monthBtn = document.getElementById('oneMonthBtn');
+
+            if (step === 1) {
+                // ဒုတိယမျက်နှာကိုသွားမယ်
+                bg.classList.add('open-scroll');
+                welcomeText.classList.add('hide-element');
+                content.style.display = 'block';
+                monthBtn.style.display = 'block';
+                step = 2;
+            } 
+            else if (step === 2) {
+                // တတိယမျက်နှာကိုသွားမယ်
+                bg.classList.remove('open-scroll');
+                bg.classList.add('final-page');
+                content.classList.add('hide-element');
+                monthBtn.classList.add('hide-element');
+                step = 3;
+            }
+        }
+    </script>
+</body>
+</html>
