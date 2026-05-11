@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey with Mgmin</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #dcd0b9;
+        }
+
+        .container {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100vh;
+            transition: background-image 0.8s ease-in-out;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        /* Repositioned Title Box to Bottom Right */
+        #displayContent {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            color: #3d2b1f;
+            font-family: 'serif';
+            text-align: right;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 15px 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: fadeIn 1s ease-out;
+            line-height: 1.2;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 { 
+            font-size: clamp(1.2rem, 5vw, 2rem); 
+            margin: 0; 
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        /* Message is hidden as requested */
+        p { display: none; }
+
+        .contain-bg { background-size: contain !important; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 600px) {
+            #displayContent { 
+                bottom: 20px; 
+                right: 20px; 
+                padding: 10px 15px; 
+            }
+        }
+    </style>
+</head>
+<body onload="updatePage()">
+
+    <div class="container" id="mainBg" onclick="nextPage()">
+        <div id="displayContent">
+            <!-- Title injected here -->
+        </div>
+    </div>
+
+    <script>
+        const pages = [
+            { 
+                image: 'first.jpg', 
+                title: 'Welcome Naw , Mgmin', 
+                isContain: false 
+            },
+            { 
+                image: 'greeting.png', 
+                title: '1 Month ==>>', 
+                isContain: true 
+            },
+            { 
+                image: 'month1.png', 
+                title: '2 Month ==>>', 
+                isContain: false 
+            },
+            { 
+                image: 'month2.png', 
+                title: '3 Months ==>>', 
+                isContain: false 
+            },
+            { 
+                image: 'month3.png', 
+                title: '>**<', 
+                isContain: false 
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function updatePage() {
+            const page = pages[currentIndex];
+            const bg = document.getElementById('mainBg');
+            const content = document.getElementById('displayContent');
+
+            // Update Background Image
+            bg.style.backgroundImage = `url('${page.image}')`;
+            
+            // Toggle contain/cover
+            if (page.isContain) {
+                bg.classList.add('contain-bg');
+            } else {
+                bg.classList.remove('contain-bg');
+            }
+
+            // Only update the Title
+            content.innerHTML = `<h1>${page.title}</h1>`;
+            
+            // Re-trigger animation
+            content.style.animation = 'none';
+            content.offsetHeight; 
+            content.style.animation = null;
+        }
+
+        function nextPage() {
+            if (currentIndex < pages.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back to start
+            }
+            updatePage();
+        }
+    </script>
+</body>
+</html>
